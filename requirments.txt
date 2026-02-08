@@ -1,5 +1,8 @@
 Streamlit
 pandas
-flask
+Flask
+numpy
+
+
 
 
