@@ -1,4 +1,0 @@
-Streamlit
-pandas
-numpy
-Flask
