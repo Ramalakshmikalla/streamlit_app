@@ -7,7 +7,7 @@ import requests
 from datetime import datetime
 import os
 import time
-import plotly.express as px
+
 
 # ==================================================
 # PAGE CONFIG
@@ -225,4 +225,5 @@ if os.path.exists(file_path):
 else:
     st.warning("Historical data file not found. Trend and correlation charts require saved data over time.")
 if st.button("about"):
+
     st.info("This dashboard fetches live cryptocurrency data from the CoinGecko API, classifies risk based on 24H price changes, and visualizes trends and correlations. Data is saved locally for historical analysis.")
