@@ -1,6 +1,6 @@
 
 
-
+import plotly.express as px
 import streamlit as st
 import pandas as pd
 import requests
@@ -227,3 +227,4 @@ else:
 if st.button("about"):
 
     st.info("This dashboard fetches live cryptocurrency data from the CoinGecko API, classifies risk based on 24H price changes, and visualizes trends and correlations. Data is saved locally for historical analysis.")
+
