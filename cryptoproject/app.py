@@ -1,12 +1,11 @@
 
 
-
 import streamlit as st
 import yfinance as yf
 import pandas as pd
 import numpy as np
-
-
+import plotly.express as px
+import plotly.graph_objects as go
 import hashlib
 import requests
 from datetime import datetime
@@ -19,6 +18,56 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+# ==================================================
+# ================= CUSTOM STYLES ==================
+# ==================================================
+st.markdown("""
+<style>
+
+.stApp {
+background: linear-gradient(135deg,#141e30,#243b55);
+}
+
+.block-container{
+padding-top:3rem;
+}
+
+.login-card{
+background: rgba(255,255,255,0.08);
+backdrop-filter: blur(10px);
+padding:40px;
+border-radius:15px;
+width:420px;
+margin:auto;
+box-shadow:0px 10px 30px rgba(0,0,0,0.4);
+color:white;
+}
+
+.card-title{
+text-align:center;
+font-size:30px;
+font-weight:600;
+margin-bottom:20px;
+}
+
+.stButton>button{
+width:100%;
+border-radius:8px;
+height:45px;
+font-size:16px;
+font-weight:600;
+background:linear-gradient(to right,#0072ff,#00c6ff);
+color:white;
+border:none;
+}
+
+.stTextInput>div>div>input{
+border-radius:8px;
+padding:10px;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 # ==================================================
 # ============== SESSION STATE INIT ===============
@@ -31,6 +80,8 @@ if "logged_in" not in st.session_state:
 
 if "page" not in st.session_state:
     st.session_state.page = "login"
+if "remember_user" not in st.session_state:
+    st.session_state.remember_user = None
 
 # ==================================================
 # ============== PASSWORD HASH FUNCTION ===========
@@ -69,27 +120,64 @@ def register():
 # ==================================================
 # ================= LOGIN PAGE =====================
 # ==================================================
+# def login():
+#     st.title("🔐 Login")
+#     with st.form("login_form"):
+#         username = st.text_input("Username")
+#         password = st.text_input("Password", type="password")
+#         submit = st.form_submit_button("Login")
+
+#         if submit:
+#             hashed = hash_password(password)
+#             stored = st.session_state.users.get(username)
+#             if stored and stored == hashed:
+#                 st.session_state.logged_in = True
+#                 st.session_state.page = "dashboard"
+#                 st.success("Login successful!")
+#                 st.rerun()
+#             else:
+#                 st.error("Invalid username or password")
+
+#     if st.button("Create New Account"):
+#         st.session_state.page = "register"
+#         st.rerun()
 def login():
-    st.title("🔐 Login")
+
+    st.markdown('<div class="login-card">', unsafe_allow_html=True)
+    st.markdown('<div class="card-title">🔐 Crypto Risk Analyzer</div>', unsafe_allow_html=True)
+
     with st.form("login_form"):
+
         username = st.text_input("Username")
         password = st.text_input("Password", type="password")
+
+        remember = st.checkbox("Remember Me")
+
         submit = st.form_submit_button("Login")
 
         if submit:
             hashed = hash_password(password)
             stored = st.session_state.users.get(username)
+
             if stored and stored == hashed:
+
                 st.session_state.logged_in = True
                 st.session_state.page = "dashboard"
+
+                if remember:
+                    st.session_state.remember_user = username
+
                 st.success("Login successful!")
                 st.rerun()
+
             else:
                 st.error("Invalid username or password")
 
     if st.button("Create New Account"):
         st.session_state.page = "register"
         st.rerun()
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # ==================================================
 # ================= DASHBOARD ======================
@@ -227,4 +315,3 @@ elif st.session_state.page == "dashboard":
     else:
         st.session_state.page = "login"
         st.rerun()
-
