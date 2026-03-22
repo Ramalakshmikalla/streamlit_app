@@ -3,4 +3,3 @@ numpy
 Flask
 pandas
 yfinance
-plotly

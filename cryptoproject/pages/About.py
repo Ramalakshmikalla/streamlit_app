@@ -43,36 +43,27 @@ This dashboard allows you to:
 - Plotly for interactive charts
 - yFinance for crypto data
 
-**Author:** Ramalakshmi Kalla  
+
 **Purpose:** To help crypto traders and enthusiasts make data-driven decisions.
 """)
 
 # Optional: add an image or logo
+cols = st.columns(6)
 
-cols = st.columns(5)
-with cols[0]:   
-    st.image("https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg", caption="Bitcoin", use_container_width=True)
+coins = [
+    ("Bitcoin", "https://assets.coingecko.com/coins/images/1/large/bitcoin.png"),
+    ("Ethereum", "https://assets.coingecko.com/coins/images/279/large/ethereum.png"),
+    ("Solana", "https://assets.coingecko.com/coins/images/4128/large/solana.png"),
+    ("Cardano", "https://assets.coingecko.com/coins/images/975/large/cardano.png"),
+    ("Tron", "https://assets.coingecko.com/coins/images/1094/large/tron-logo.png"),
+     ("Dogecoin", "https://assets.coingecko.com/coins/images/5/large/dogecoin.png"),
+]
 
-with cols[1]:
-    st.image("https://cryptologos.cc/logos/ethereum-eth-logo.png?v=014", caption="Ethereum", use_container_width=True)
-
-# Solana
-with cols[2]:
-    st.image("https://cryptologos.cc/logos/solana-sol-logo.png?v=014", caption="Solana", use_container_width=True)
-
-# Cardano
-with cols[3]:
-    st.image("https://cryptologos.cc/logos/cardano-ada-logo.png?v=014", caption="Cardano", use_container_width=True)
-
-# Tron
-with cols[4]:
-    st.image("https://cryptologos.cc/logos/tron-trx-logo.png?v=014", caption="Tron", use_container_width=True)
-
-
-    if st.sidebar.button("Logout"):
-        st.session_state.logged_in = False
-        st.session_state.page = "login"
-        st.rerun()
+for col, (name, url) in zip(cols, coins):
+    with col:
+        st.image(url, caption=name, use_container_width=True)
+if st.sidebar.button("Logout", key="logout_about"):
+    st.switch_page("Login.py")   # or your login page path
 
 if st.button("Go to Dashboard"):
     st.switch_page("pages/dashboard.py")
