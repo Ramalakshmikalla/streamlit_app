@@ -66,7 +66,7 @@ if st.sidebar.button("Logout", key="logout_about"):
     st.switch_page("Login.py")   # or your login page path
 
 if st.button("Go to Dashboard"):
-    st.switch_page("pages/dashboard.py")
+    st.switch_page("pages/Dashboard.py")
 if st.button("Go to Home"):
     st.switch_page("app.py")
 
