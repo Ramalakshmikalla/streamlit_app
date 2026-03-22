@@ -21,6 +21,11 @@ font-size:38px;
 font-weight:700;
 text-align:center;
 color:#4CAF50;
+             text-size-adjust: 100%;
+}
+            /* -------- Sidebar -------- */
+[data-testid="stSidebar"]{
+    background: linear-gradient(180deg,#020617,#0f172a);
 }
 
 .subtitle{
@@ -65,11 +70,24 @@ margin-top:10px;
 .return{border-left:6px solid #00c853;}
 .volatility{border-left:6px solid #ff9800;}
 .sharpe{border-left:6px solid #03a9f4;}
-
+            
+/* Modern Gradient Button */
+div.stButton > button {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: white;
+    border: none;
+    padding: 0.6em 1.4em;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
 </style>
 """, unsafe_allow_html=True)
-
-st.markdown('<p class="main-title">📊 Cryptocurrency Risk & Return Dashboard</p>', unsafe_allow_html=True)
+st.markdown(
+    "<h1 style='text-align:center; font-size:40px; color:lightblue;'>📊 Crypto Volatility & Risk Analyzer</h1>",
+    unsafe_allow_html=True
+)
 st.markdown('<p class="subtitle">Risk Analytics | Volatility Study | Sharpe Ratio Evaluation</p>', unsafe_allow_html=True)
 
 # -------------------------------------------
@@ -283,3 +301,9 @@ with main_tab3:
 
 Higher Sharpe Ratio means **better risk-adjusted performance**.
 """)
+        
+    if st.sidebar.button("Logout"):
+        st.session_state.logged_in = False
+        st.session_state.page = "login"
+        st.rerun()
+        

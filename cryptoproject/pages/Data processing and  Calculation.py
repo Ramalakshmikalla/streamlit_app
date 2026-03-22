@@ -6,6 +6,7 @@ import streamlit as st
 import yfinance as yf  # Changed from requests
 import plotly.express as px
 
+
 st.set_page_config(page_title="Crypto Risk Analysis", layout="wide")
 # ==================================================
 # GLOBAL DASHBOARD STYLES
@@ -13,16 +14,8 @@ st.set_page_config(page_title="Crypto Risk Analysis", layout="wide")
 st.markdown("""
 <style>
 
-/* -------- Main Background -------- */
-.stApp {
-    background: linear-gradient(135deg,#0f172a,#1e293b);
-    color: white;
-}
 
-/* Reduce Top Padding */
-.block-container{
-    padding-top:2rem;
-}
+
 
 /* -------- Sidebar -------- */
 [data-testid="stSidebar"]{
@@ -97,13 +90,16 @@ div.stButton > button:hover{
 header1, header2 = st.columns([8,1])
 
 with header1:
-    st.title("📊 Crypto Risk Analysis Dashboard")
+  
+    st.markdown(
+    "<h1 style='text-align:left; font-size:40px; color:lightblue;'>📊 Crypto Risk Analysis Dashboard</h1>",
+    unsafe_allow_html=True
+)
 
-with header2:
-    if st.button("🚪 Logout"):
-        st.session_state.logged_in = False
-        st.session_state.page = "login"
-        st.rerun()
+    
+
+
+    
 
 # -------------------------------------------------------
 # Layout
@@ -301,3 +297,11 @@ best_sharpe = metrics_df.loc[
 st.subheader("📌 Interpretation")
 st.write(f"🔴 Most Volatile Asset: **{most_volatile}**")
 st.write(f"🟢 Best Risk-Adjusted Return: **{best_sharpe}**")
+
+
+    
+if st.sidebar.button("Logout"):
+        st.session_state.logged_in = False
+        st.session_state.page = "login"
+        st.rerun()
+

@@ -24,13 +24,12 @@ st.set_page_config(
 # ==================================================
 st.markdown("""
 <style>
-/* App Background */
-.stApp {
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: white;
+            
+
+/* -------- Sidebar -------- */
+[data-testid="stSidebar"]{
+    background: linear-gradient(180deg,#020617,#0f172a);
 }
-/* Reduce top spacing */
-.block-container { padding-top: 2rem; }
 /* Modern Gradient Button */
 div.stButton > button {
     background: linear-gradient(135deg, #2563eb, #1e40af);
@@ -63,7 +62,12 @@ div.stButton > button:hover {
 # ==================================================
 # HEADER
 # ==================================================
-st.title("📊 Advanced Crypto Data Acquisition")
+
+
+st.markdown(
+    "<h1 style='text-align:center; font-size:40px; color:lightblue;'>📊 Advanced Crypto Data Acquisition</h1>",
+    unsafe_allow_html=True
+)
 
 col1, col2 = st.columns([6, 1])
 with col1:
@@ -196,7 +200,13 @@ if os.path.exists("data/advanced_crypto_data.csv"):
         hist_df = pd.read_csv("data/advanced_crypto_data.csv")
    
     # Pivot for trend chart (Date vs Coin Prices)
-price_trend_df = hist_df.pivot(index='Date', columns='Coin', values='Price (USD)')
+# price_trend_df = hist_df.pivot(index='Date', columns='Coin', values='Price (USD)')
+price_trend_df = hist_df.pivot_table(
+    index='Date',
+    columns='Coin',
+    values='Price (USD)',
+    aggfunc='mean'   # you can also use 'sum', 'max', 'min'
+)
 
     # ----------------------------
     # Price Trends Line Chart
@@ -223,6 +233,13 @@ fig_corr = px.imshow(
         title="Correlation Matrix of Crypto Prices"
     )
 st.plotly_chart(fig_corr, use_container_width=True)
+
+
+if st.sidebar.button("Logout"):
+        st.session_state.logged_in = False
+        st.session_state.page = "login"
+        st.rerun()
+
 
    
 

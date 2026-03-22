@@ -23,25 +23,12 @@ st.set_page_config(
 # ==================================================
 st.markdown("""
 <style>
-
-.stApp {
-background: linear-gradient(135deg,#141e30,#243b55);
+   
+    /* -------- Sidebar -------- */
+[data-testid="stSidebar"]{
+    background: linear-gradient(180deg,#020617,#0f172a);
 }
 
-.block-container{
-padding-top:3rem;
-}
-
-.login-card{
-background: rgba(255,255,255,0.08);
-backdrop-filter: blur(10px);
-padding:40px;
-border-radius:15px;
-width:420px;
-margin:auto;
-box-shadow:0px 10px 30px rgba(0,0,0,0.4);
-color:white;
-}
 
 .card-title{
 text-align:center;
@@ -120,27 +107,7 @@ def register():
 # ==================================================
 # ================= LOGIN PAGE =====================
 # ==================================================
-# def login():
-#     st.title("🔐 Login")
-#     with st.form("login_form"):
-#         username = st.text_input("Username")
-#         password = st.text_input("Password", type="password")
-#         submit = st.form_submit_button("Login")
 
-#         if submit:
-#             hashed = hash_password(password)
-#             stored = st.session_state.users.get(username)
-#             if stored and stored == hashed:
-#                 st.session_state.logged_in = True
-#                 st.session_state.page = "dashboard"
-#                 st.success("Login successful!")
-#                 st.rerun()
-#             else:
-#                 st.error("Invalid username or password")
-
-#     if st.button("Create New Account"):
-#         st.session_state.page = "register"
-#         st.rerun()
 def login():
 
     st.markdown('<div class="login-card">', unsafe_allow_html=True)
@@ -183,8 +150,13 @@ def login():
 # ================= DASHBOARD ======================
 # ==================================================
 def dashboard():
-    st.title("📊 Crypto Volatility & Risk Analyzer")
+    st.markdown(
+    "<h1 style='text-align:left; font-size:40px; color:lightblue;'>📊 Crypto Volatility & Risk Analyzer</h1>",
+    unsafe_allow_html=True
+)
+    
     st.markdown("### Analyzing Cryptocurrency Risk Through Automated Data Acquisition")
+    
 
     # Sidebar
     st.sidebar.header("Settings")
@@ -198,6 +170,7 @@ def dashboard():
         st.session_state.logged_in = False
         st.session_state.page = "login"
         st.rerun()
+        st.success("Logged out successfully!")
 
     # --------------------------
     # Fetch Historical Data via yfinance

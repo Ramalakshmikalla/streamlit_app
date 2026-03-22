@@ -1,11 +1,17 @@
 import streamlit as st
+import pandas as pd
+import requests         
 
 # Page config (optional)
 st.set_page_config(page_title="About")
 st.title("**Crypto Volatility & Risk Analyzer**! 🚀")
 # Description
 
+
+
 st.markdown("""
+         
+
 The **Crypto Volatility & Risk Analyzer** is a tool designed to help cryptocurrency traders and enthusiasts **understand market fluctuations** and make informed investment decisions.
 
 Cryptocurrencies are highly volatile, with prices that can change rapidly. This dashboard allows you to:
@@ -61,6 +67,12 @@ with cols[3]:
 # Tron
 with cols[4]:
     st.image("https://cryptologos.cc/logos/tron-trx-logo.png?v=014", caption="Tron", use_container_width=True)
+
+
+    if st.sidebar.button("Logout"):
+        st.session_state.logged_in = False
+        st.session_state.page = "login"
+        st.rerun()
 
 if st.button("Go to Dashboard"):
     st.switch_page("pages/dashboard.py")
